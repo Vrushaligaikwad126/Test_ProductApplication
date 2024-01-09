@@ -24,15 +24,13 @@ public class ServiceImplementation implements Service{
 
     @Override
     public List<Product> DisplayAllProducts() {
-        String displayQuery="select pName,pPrice from product_info";
+        String displayQuery="select * from product_info";
         List<Product> productList=new ArrayList<>();
         try {
             Statement stmt=conn.createStatement();
             ResultSet rs= stmt.executeQuery(displayQuery);
             while (rs.next()){
-                String name=rs.getString(1);
-                double pPrice=rs.getDouble(2);
-                Product product=new Product(name,pPrice);
+               Product product=new Product(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getDouble(4));
                 productList.add(product);
             }
         } catch (SQLException e) {
@@ -45,43 +43,29 @@ public class ServiceImplementation implements Service{
 
     @Override
     public boolean placeOrder(Order newOrder) {
-        boolean status= false;
-
         try {
-            CallableStatement cstmt= conn.prepareCall("{call placeOrder(?,?,?,?)}");
+            CallableStatement cstmt= conn.prepareCall("{call placeOrder(?,?,?)}");
             cstmt.setString(1,newOrder.getCustomer_Name());
             cstmt.setInt(2,newOrder.getpId());
             cstmt.setInt(3,newOrder.getpQty());
-
             cstmt.execute();
-
-            status= cstmt.getBoolean(4);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        return status;
+        return true;
 
     }
 
     @Override
     public List<Order> displayAllOrders() {
         List<Order> orderList=  new ArrayList<>();
-        String displayquery = "select o.order_id,o.customer_name,o.product_id *p. product_price as total,p.product_name,o.  product_qty\n" +
-                "from\n" +
-                "order_info o inner join product_info p on o.product_id=p.product_id;\n" +
-                "     ";
+        String displayquery = "select * from order_info";
         try {
             Statement stmt= conn.createStatement();
 
             ResultSet rs= stmt.executeQuery(displayquery);
             while (rs.next()){
-                int oId=rs.getInt(1);
-                String cName= rs.getString(2);
-                double totalAmt=rs.getDouble(3);
-                String pName=rs.getString(4);
-                int qty =rs.getInt(5);
-                Order order=new Order(oId,cName,totalAmt,pName,qty);
+               Order order =new Order(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getDouble(5));
                 orderList.add(order);
             }
         } catch (SQLException e) {

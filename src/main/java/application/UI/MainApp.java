@@ -40,11 +40,14 @@ public class MainApp {
             case 5:
                  displayAllOrders();
                 break;
+            case 6:
+                System.exit(0);
             default:
                 System.out.println("PLEASE ENTER VALID CHOICE");
 
 
         }
+        main(args);
     }
 
     private static void displayAllOrders() {

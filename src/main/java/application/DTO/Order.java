@@ -21,10 +21,11 @@ public class Order {
         this.total_Bill = total_Bill;
     }
 
-    public Order(String customerName, int productId, int productQty) {
-    }
 
-    public Order(int oId, String cName, double totalAmt, String pName, int qty) {
+    public Order(String customer_Name, int pId, int pQty) {
+        this.customer_Name = customer_Name;
+        this.pId = pId;
+        this.pQty = pQty;
     }
 
     public int getoId() {
