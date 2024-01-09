@@ -9,7 +9,11 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, double pPrice) {
+
+
+    public Product(int pId, double pPrice) {
+        this.pId = pId;
+        this.pPrice = pPrice;
     }
 
     public int getpId() {
@@ -51,4 +55,7 @@ public class Product {
         this.pPrice = pPrice;
     }
 
+    public Product(int pId) {
+        this.pId = pId;
+    }
 }

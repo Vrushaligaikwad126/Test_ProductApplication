@@ -74,4 +74,34 @@ public class ServiceImplementation implements Service{
         return orderList;
 
     }
+
+    @Override
+    public int removeProduct(int pId) {
+        String delquery="delete from product_info where pId=?";
+        int n=0;
+        try {
+            PreparedStatement pstmt=conn.prepareStatement(delquery);
+            pstmt.setInt(1,pId);
+           n= pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return n;
+    }
+
+    @Override
+    public int updateProduct(Product newProduct) {
+        String update="update product_info set pPrice=? where pId=?";
+        int n=0;
+        try {
+            PreparedStatement pstmt=conn.prepareStatement(update);
+            pstmt.setInt(2, newProduct.getpId());
+            pstmt.setDouble(1,newProduct.getpPrice());
+           n= pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return n;
+
+    }
 }

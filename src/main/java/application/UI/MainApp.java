@@ -29,10 +29,10 @@ public class MainApp {
                 displayAllProducts();
                 break;
             case 2:
-                //removeProduct();
+                removeProduct();
                 break;
             case 3:
-                //updateProduct();
+                updateProduct();
                 break;
             case 4:
                  placeOrder();
@@ -48,6 +48,28 @@ public class MainApp {
 
         }
         main(args);
+    }
+
+    private static void updateProduct() {
+        System.out.println("ENTER ID");
+        int pId=sc.nextInt();
+
+        System.out.println("ENTER UPDATED PRODUCT PRICE");
+        double pPrice=sc.nextDouble();
+
+
+        Product newProduct=new Product(pId,pPrice);
+
+        int n=service.updateProduct(newProduct);
+        System.out.println(n+" RECORD UPDATED");
+    }
+
+    private static void removeProduct() {
+        System.out.println("ENTER ID");
+        int pId=sc.nextInt();
+
+        int n=service.removeProduct(pId);
+        System.out.println(n+"RECORD DELETED ");
     }
 
     private static void displayAllOrders() {

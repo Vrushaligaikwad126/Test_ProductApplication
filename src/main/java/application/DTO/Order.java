@@ -68,5 +68,7 @@ public class Order {
         this.total_Bill = total_Bill;
     }
 
-
+    public Order(int pId) {
+        this.pId = pId;
+    }
 }
